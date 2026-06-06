@@ -172,7 +172,6 @@ public class ServiceResolverRegistry {
         // Check if any SPI provider handles "auto" type
         var providers = IGuiceContext.loaderToSet(ServiceLoader.load(IServiceResolverProvider.class));
         for (var provider : providers) {
-            @SuppressWarnings("unchecked")
             IServiceResolverProvider<?> resolverProvider = (IServiceResolverProvider<?>) provider;
             if ("auto".equals(resolverProvider.type())) {
                 var resolver = resolverProvider.create(name, options);

@@ -6,6 +6,7 @@ import com.guicedee.vertx.servicediscovery.test.kubelive.KubeLiveServiceClient;
 import com.guicedee.vertx.spi.VertXPreStartup;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
+import io.vertx.core.http.HttpClientRequest;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.RequestOptions;
 import io.vertx.core.net.AddressResolver;
@@ -131,7 +132,7 @@ public class KubernetesLiveIntegrationTest
                         .setMethod(HttpMethod.GET)
                         .setURI("/")
                         .setServer(serviceAddress))
-                .compose(req -> req.send())
+                .compose(HttpClientRequest::send)
                 .compose(resp -> {
                     statusCode.set(resp.statusCode());
                     return resp.body();
@@ -193,7 +194,7 @@ public class KubernetesLiveIntegrationTest
                         .setHost("127.0.0.1")
                         .setPort(30080)
                         .setURI("/"))
-                .compose(req -> req.send())
+                .compose(HttpClientRequest::send)
                 .compose(resp -> {
                     statusCode.set(resp.statusCode());
                     return resp.body();
