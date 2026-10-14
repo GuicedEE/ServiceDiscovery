@@ -25,7 +25,7 @@ Built on [Vert.x 5](https://vertx.io/) · [Vert.x Service Resolver](https://vert
 <summary>Gradle (Kotlin DSL)</summary>
 
 ```kotlin
-implementation("com.guicedee:service-discovery:2.2.0")
+implementation("com.guicedee:service-discovery:2.4.0")
 ```
 </details>
 
