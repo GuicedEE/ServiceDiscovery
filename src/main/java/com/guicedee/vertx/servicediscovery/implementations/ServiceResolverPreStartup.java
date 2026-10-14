@@ -1,5 +1,7 @@
 package com.guicedee.vertx.servicediscovery.implementations;
 
+import com.guicedee.client.utils.ClassLoading;
+
 import com.guicedee.client.IGuiceContext;
 import com.guicedee.client.services.lifecycle.IGuicePreStartup;
 import com.guicedee.vertx.servicediscovery.ServiceResolverOptions;
@@ -48,7 +50,7 @@ public class ServiceResolverPreStartup implements IGuicePreStartup<ServiceResolv
     {
         for (PackageInfo packageInfo : scanResult.getPackageInfo())
         {
-            var annotationInfo = packageInfo.getAnnotationInfo(ServiceResolverOptions.class.getName());
+            var annotationInfo = packageInfo.getDirectAnnotationInfo(ServiceResolverOptions.class.getName());
             if (annotationInfo != null)
             {
                 try
@@ -82,7 +84,7 @@ public class ServiceResolverPreStartup implements IGuicePreStartup<ServiceResolv
             if (classInfo.getName().endsWith(".package-info")) continue; // already handled
             try
             {
-                Class<?> clazz = classInfo.loadClass();
+                Class<?> clazz = ClassLoading.loadClass(classInfo);
                 ServiceResolverOptions annotation = clazz.getAnnotation(ServiceResolverOptions.class);
                 if (annotation != null)
                 {
